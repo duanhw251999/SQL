@@ -1,0 +1,13 @@
+﻿--汇聚平台集团下发
+SELECT ETL_SYSTEM,ETL_Job,Description,JobType,Enable,Last_StartTime,Last_EndTime,Last_JobStatus,Last_TXDate
+FROM ODSETL.ETL_JOB     
+WHERE   ETL_JOB IN                          
+(                                                                                  
+,'12112','12113','12118','12121','12123'
+,'12125','12126','12129','12130','12133'
+,'12114','12115','12116','12117','12119'
+,'12120','12122','12124','12127','12128'
+,'12131','12132','12134'
+)
+AND  ETL_SYSTEM = 'BOS'
+ORDER  BY JOBTYPE,LAST_TXDATE,LAST_ENDTIME,ETL_JOB;

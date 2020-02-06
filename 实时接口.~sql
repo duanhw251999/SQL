@@ -1,0 +1,16 @@
+--实时接口
+select etl_job,enable,last_jobstatus,LAST_STARTTIME,last_endtime,last_txdate from odsetl.etl_job
+where etl_job in (
+select stream_job from  odsetl.etl_job_stream
+where etl_system = 'TES')
+order by last_jobstatus,last_txdate desc;
+
+--实时接口BSS3.0
+select etl_job,enable,last_jobstatus,LAST_STARTTIME,last_endtime,last_txdate from odsetl.etl_job
+where etl_job in (
+select stream_job from  odsetl.etl_job_stream A 
+where etl_system = 'BBB'
+AND a.stream_job like 'T_CRM%'
+AND A.ETL_JOB='T_BSS_STREAM_JOB'
+)
+order by last_jobstatus,last_txdate desc;

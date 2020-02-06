@@ -1,0 +1,4 @@
+select a.OWNER,a.TABLE_NAME,a.NUM_ROWS from dba_tables a 
+where a.OWNER='OTHPDATA' and a.TABLE_NAME like '%20190604%'
+
+select * from othpdata.TB_25043_S_20190604

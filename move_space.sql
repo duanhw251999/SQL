@@ -6,3 +6,11 @@ WHERE
 ORDER BY table_name;
 alter table odspmart.t_mid_fin_income_201910 move tablespace MDATA_HIS;
 commit;
+
+
+SELECT * FROM    all_tables
+WHERE
+    OWNER = 'OTHPDATA'
+    AND TABLE_NAME LIKE 'TB_%'
+    and tablespace_name='PDATA_OTH'
+ORDER BY table_name;

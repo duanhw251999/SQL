@@ -1,83 +1,117 @@
-1ÈÕ
+1æ—¥  ä¸€å®šè¦è®°ä½
 
-¼ì²éÇ··Ñ½Ó¿Ú25011-25016  >>> ÊÖ¶¯·Å¿ªBBB  >>> µÈ´ý´¥·¢MONTH_A >>> ·Å¿ªMONTH_A ÏÂÓÎ
+æ£€æŸ¥æ¬ è´¹æŽ¥å£30111-30124  >>> æ‰‹åŠ¨æ”¾å¼€BBB  >>> ç­‰å¾…è§¦å‘MONTH_A >>> æ”¾å¼€MONTH_A ä¸‹æ¸¸
+SELECT a.etl_system,a.etl_job,a.etl_server,a.jobtype,a.enable,a.last_jobstatus,a.last_txdate,a.last_starttime,a.last_endtime 
+FROM odsetl.etl_job a
+WHERE 
+a.etl_job between '30111' and '30124'
+ORDER BY a.etl_job asc;
 
---ÏÂÓÎ×÷Òµ
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30111_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30111_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30112_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30112_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30113_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30113_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30114_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30114_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30115_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30115_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30116_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30116_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30117_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30117_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30118_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30118_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30119_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30119_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30120_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30120_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30121_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30121_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30122_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30122_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30123_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30123_S_YYYYMMDD UNION ALL
+SELECT /*+PARALLEL(32)*/ 'OTHPDATA.TB_30124_S_YYYYMMDD',COUNT(*) AS NUM FROM OTHPDATA.TB_30124_S_YYYYMMDD
+--ä¸‹æ¸¸ä½œä¸š
 SELECT  a.ETL_SYSTEM,a.ETL_JOB,a.Description,a.JobType,a.Enable,a.Last_StartTime,a.Last_EndTime,a.Last_JobStatus,a.Last_TXDate 
 FROM  ODSETL.ETL_JOB a
---update odsetl.etl_job a set last_jobstatus = 'Pending',last_txdate = '2016-12-31'
+--update odsetl.etl_job a set last_jobstatus = 'Pending',last_txdate = '2020-04-30'
 where
 a.ETL_SYSTEM not in ('ORC','SYN') 
 and a.ETL_JOB in (select Stream_Job from odsetl.ETL_Job_Stream where ETL_Job IN ('T_AWT_PRD_PROD_INST_MONTH_A'))
 ;
 
---==DAPM_PRD_REPORT_CLCT_TGT_2(ÖØµãÖ¸±ê»ã×ÜÉÏ±¨½Ó¿Ú£¨ÔÂ£©_2ºÅ)ºË²éÁ÷³Ì£ºÌîÐ´¡¶¼¯ÍÅÖØµãÖ¸±ê¿í±íÖ¸±ê»·±ÈºË²éÁ÷³Ì.xls¡·
+--==DAPM_PRD_REPORT_CLCT_TGT_2(é‡ç‚¹æŒ‡æ ‡æ±‡æ€»ä¸ŠæŠ¥æŽ¥å£ï¼ˆæœˆï¼‰_2å·)æ ¸æŸ¥æµç¨‹ï¼šå¡«å†™ã€Šé›†å›¢é‡ç‚¹æŒ‡æ ‡å®½è¡¨æŒ‡æ ‡çŽ¯æ¯”æ ¸æŸ¥æµç¨‹.xlsã€‹
 SELECT
-201902 AS MONTH_ID,A.PRVNCE_ID,A.LATN_ID,A.KEY_TARGET_CD,A.TARGET_UNIT
-,SUM(CASE WHEN A.MONTH_ID=201902 THEN A.TARGET_VALUE END) AS TARGET_VALUE
-,SUM(CASE WHEN A.MONTH_ID=TO_CHAR(ADD_MONTHS(TO_DATE('201902','201905'),-1),'201905') THEN A.TARGET_VALUE END) AS TARGET_VALUE_LASTMONTH
+202005 AS MONTH_ID,A.PRVNCE_ID,A.LATN_ID,A.KEY_TARGET_CD,A.TARGET_UNIT
+,SUM(CASE WHEN A.MONTH_ID=202005 THEN A.TARGET_VALUE END) AS TARGET_VALUE
+,SUM(CASE WHEN A.MONTH_ID=TO_CHAR(ADD_MONTHS(TO_DATE('202005','YYYYMM'),-1),'YYYYMM') THEN A.TARGET_VALUE END) AS TARGET_VALUE_LASTMONTH
 FROM ODSPMART.T_BWT_DAPM_PRD_REPORT_CLCTTGT2 A
-WHERE A.MONTH_ID>=TO_CHAR(ADD_MONTHS(TO_DATE('201902','201905'),-1),'201905')
+WHERE A.MONTH_ID>=TO_CHAR(ADD_MONTHS(TO_DATE('202005','YYYYMM'),-1),'YYYYMM')
 AND A.KEY_TARGET_CD IN ('M1010101001','M1010103013','M1010103031','M1010202051','M1010202060','M1010202061','M1010202062')
 GROUP BY A.PRVNCE_ID,A.LATN_ID,A.KEY_TARGET_CD,A.TARGET_UNIT
 ORDER BY A.KEY_TARGET_CD;
 
-2ÈÕ
+2æ—¥    12066 12064
 
-´Ó¼Æ·ÑµÃµ½14004 14005Á½¸ö²¹³äÊý¾Ý£¬½«ÕâÁ½¸öÊý¾Ý²¹³äµ½ÒÑ¾­ÈëµÄ½Ó¿ÚÊý¾ÝÀï£¬ÖØÐÂÅÜBOS ºÍ BBB  59ÉÏÓÐload½Å±¾
-14004 ºÍ 14005Á½¸öÎÄ¼þÐèÒªÐÞ¸Ä·Ö¸ô·û£¬²¢ÔÚ×îºó¼ÓÈë×Ö¶Î£¬°´ÕÕ3ÔÂ·ÝµÄÊý¾Ý±ê×¼À´×ö
 
-²é¿´25001-25010  ÔÂÕË ²ÆÎñÔÂÕË ºË¶Ô¼ÇÂ¼Êý  ·Å¿ªBBB  
+æŸ¥çœ‹30083-30096  30097-30110  æœˆè´¦ è´¢åŠ¡æœˆè´¦ æ ¸å¯¹è®°å½•æ•°  
+æ”¾å¼€BBB --->
+è·‘å®ŒåŽé€šçŸ¥å¼ é“å¹³è°ƒè´¦--->
+T_BIL_ACCT_ITEM_FINä¸‹æ¸¸ä¸¤ä¸ªMIDå¼ºåˆ¶è·‘--->
+T_MID_FIN_INCOME
+T_MID_FIN_INCOME_ALL_A   --->
+T_MID_PRD_CDMA_ACCT --->
+MONTH_B --->
+ä¸‹æ¸¸æ”¾å¼€äº†--->
+T_MID_CPSP_SETTLE_INDEX --->
+å¼ºåˆ¶è·‘ALL_B  --->
+ALL_Bè·‘å®Œè§¦å‘å®žä¾‹çº§æ”¶å…¥æ˜Žç»†T_BWT_DAPM_PRD_INST_INCOME
 
-T_MID_FIN_INCOM  ÅÜÍêºóÍ¨ÖªÕÅµÀÆ½µ÷ÕË
+-->T_MID_FIN_INCOME_ALL_Aé‡è·‘ä¸€æ¬¡-->T_MID_PRD_CDMA_ACCTè·‘èµ·æ¥->MONTH_B
 
-µ÷ÕËºó ·Å¿ªÏÂÓÎÈý¸ö×÷Òµ  »á´¥·¢MONTH_B
+SELECT 
+ETL_Job,Description,Last_StartTime,Last_EndTime,Last_JobStatus,Last_TXDate
+ FROM ODSETL.ETL_JOB
+WHERE ETL_JOB IN (
+'30083','30084','30085','30086','30087'
+,'30088','30089','30090','30091','30092'
+,'30093','30094','30095','30096',
+'30097','30098','30099','30100','30101'
+,'30102','30103','30104','30105','30106'
+,'30107','30108','30109','30110'
+);
 
-ÒÀ¾ÝÇé¿ö·Å¿ªMONTH_B ÏÂÓÎ
 
---ÏÂÓÎ×÷Òµ
+
+è°ƒè´¦åŽ æ”¾å¼€ä¸‹æ¸¸ä¸‰ä¸ªä½œä¸š  ä¼šè§¦å‘MONTH_B
+
+ä¾æ®æƒ…å†µæ”¾å¼€MONTH_B ä¸‹æ¸¸
+
+--ä¸‹æ¸¸ä½œä¸š
 SELECT  a.ETL_SYSTEM,a.ETL_JOB,a.Description,a.JobType,a.Enable,a.Last_StartTime,a.Last_EndTime,a.Last_JobStatus,a.Last_TXDate 
 FROM  ODSETL.ETL_JOB a
---update odsetl.etl_job a set last_jobstatus = 'Pending',last_txdate = '2016-12-31'
+--update odsetl.etl_job a set last_jobstatus = 'Pending',last_txdate = '2020-04-30'
 where
 a.ETL_SYSTEM not in ('ORC','SYN') 
 and a.ETL_JOB in (select Stream_Job from odsetl.ETL_Job_Stream where ETL_Job IN ('T_AWT_PRD_PROD_INST_MONTH_B'))
 ;
 
 
-3ÈÕ
+3æ—¥
 
---==DAPM_PRD_REPORT_CLCT_TGT(ÖØµãÖ¸±ê»ã×ÜÉÏ±¨½Ó¿Ú£¨ÔÂ£©_5ºÅ)ºË²éÁ÷³Ì£ºÌîÐ´¡¶¼¯ÍÅÖØµãÖ¸±ê¿í±íÖ¸±ê»·±ÈºË²éÁ÷³Ì.xls¡·
+--==DAPM_PRD_REPORT_CLCT_TGT(é‡ç‚¹æŒ‡æ ‡æ±‡æ€»ä¸ŠæŠ¥æŽ¥å£ï¼ˆæœˆï¼‰_5å·)æ ¸æŸ¥æµç¨‹ï¼šå¡«å†™ã€Šé›†å›¢é‡ç‚¹æŒ‡æ ‡å®½è¡¨æŒ‡æ ‡çŽ¯æ¯”æ ¸æŸ¥æµç¨‹.xlsã€‹
 SELECT * FROM ODSPMART.T_BWT_DAPM_PRD_REPORT_CLCT_TGT A
-WHERE A.MONTH_ID=201902
+WHERE A.MONTH_ID=202005
 ORDER BY A.KEY_TARGET_CD;
 
-SELECT * FROM ODSPMART.T_BWT_DAPM_PRD_REPORT_CLCT_TGT
-WHERE MONTH_ID>=TO_CHAR(ADD_MONTHS(TO_DATE('201902','201905'),-1),'201905')
-ORDER BY KEY_TARGET_CD,MONTH_ID;
+--------------------------------------------------------CPSP æµç¨‹ 
 
-SELECT * FROM ODSPMART.T_BWT_DAPM_PRD_REPORT_CLCT_TGT A
-WHERE A.MONTH_ID=201902
-ORDER BY A.KEY_TARGET_CD;
+						14004ã€14005(é™¶æ•) 21005(åˆ˜å†¬) å…ˆæ ¸æŸ¥
+						--==ç”˜è‚ƒç”µä¿¡CPSPç»“ç®—ä¸šåŠ¡æ”¶å…¥å¤„ç†æµç¨‹==--ï¼š
 
---------------------------------------------------------CPSP Á÷³Ì 
-
-						14004¡¢14005(ÌÕÃô) 21005(Áõ¶¬) ÏÈºË²é
-						--==¸ÊËàµçÐÅCPSP½áËãÒµÎñÊÕÈë´¦ÀíÁ÷³Ì==--£º
-
-						1£º¼ì²é×÷Òµµ÷¶ÈÉæ¼°µÄÏà¹Ø±íÊÇ·ñÍê³É·ÖÎö:
-						A:¼ì²é±íÊÇ·ñ·ÖÎö£¨Éæ¼°µÄ±í¿ÉÒÔ´Ó´æ´¢¹ý³ÌÖÐ²éÑ¯£¬×¢ÒâÌæ»»±íµÄÔÂ·Ý£©
+						1ï¼šæ£€æŸ¥ä½œä¸šè°ƒåº¦æ¶‰åŠçš„ç›¸å…³è¡¨æ˜¯å¦å®Œæˆåˆ†æž:
+						A:æ£€æŸ¥è¡¨æ˜¯å¦åˆ†æžï¼ˆæ¶‰åŠçš„è¡¨å¯ä»¥ä»Žå­˜å‚¨è¿‡ç¨‹ä¸­æŸ¥è¯¢ï¼Œæ³¨æ„æ›¿æ¢è¡¨çš„æœˆä»½ï¼‰
 						SELECT A.OWNER,A.TABLE_NAME,A.NUM_ROWS FROM DBA_TABLES A
 						WHERE A.OWNER||'.'||A.TABLE_NAME IN
 						(
 						'CRMPDATA.T_PRD_PROD_OFFER'
-						,'ODSPMART.T_AWT_PRD_PROD_FUNC_A_201905'
-						,'ODSPMART.T_AWT_PRD_PROD_INST_201905'
-						,'ODSPMART.T_AWT_PRD_PROD_OFFER_201905'
+						,'ODSPMART.T_AWT_PRD_PROD_FUNC_A_YYYYMM'
+						,'ODSPMART.T_AWT_PRD_PROD_INST_YYYYMM'
+						,'ODSPMART.T_AWT_PRD_PROD_OFFER_YYYYMM'
 						,'ODSPMART.T_MID_ACCT_ITEM_TOTAL'
-						,'ODSPMART.T_MID_FIN_INCOME_201905'
-						,'ODSPMART.T_MID_PRD_FUNC_INST_201905'
-						,'ODSPMART.T_MID_EVT_ITV_VIEWINFO_201905'
+						,'ODSPMART.T_MID_FIN_INCOME_YYYYMM'
+						,'ODSPMART.T_MID_PRD_FUNC_INST_YYYYMM'
+						,'ODSPMART.T_MID_EVT_ITV_VIEWINFO_YYYYMM'
 						,'OTHPDATA.T_BIL_ACCT_ITEM'
 						,'OTHPDATA.T_BIL_PAID_ACCT_ITEM'
 						,'OTHPDATA.T_EVT_EVENT_EXT'
@@ -89,35 +123,29 @@ ORDER BY A.KEY_TARGET_CD;
 						,'OTHPDATA.T_JTD_YZF_LHLG_KPI'
 						)
 						
-						B:¶ÔÎ´·ÖÎöµÄ±í½øÐÐÖ´ÐÐÊÖ¶¯·ÖÎö£¨²ÎÕÕÒÔÏÂÓï·¨£¬×¢ÒâÐÞ¸ÄÓÃ»§ºÍ±íÃû³Æ£©£º
-						4	ODSPMART	T_AWT_PRD_PROD_OFFER_201904	
-8	ODSPMART	T_MID_PRD_FUNC_INST_201904	
-3	ODSPMART	T_MID_FIN_INCOME_201904	
-1	ODSPMART	T_AWT_PRD_PROD_FUNC_A_201904	
-2	ODSPMART	T_MID_EVT_ITV_VIEWINFO_201904	
-
-						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_FIN_INCOME_201905',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
-						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_EVT_ITV_VIEWINFO_201905',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
-						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_FIN_INCOME_201904',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
-						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_AWT_PRD_PROD_FUNC_A_201904',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
-						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_EVT_ITV_VIEWINFO_201904',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
+						B:å¯¹æœªåˆ†æžçš„è¡¨è¿›è¡Œæ‰§è¡Œæ‰‹åŠ¨åˆ†æžï¼ˆå‚ç…§ä»¥ä¸‹è¯­æ³•ï¼Œæ³¨æ„ä¿®æ”¹ç”¨æˆ·å’Œè¡¨åç§°ï¼‰ï¼š
+						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_FIN_INCOME_202005',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
+						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_PRD_FUNC_INST_202005',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
+						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_FIN_INCOME_202005',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
+						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_AWT_PRD_PROD_FUNC_A_202005',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
+						EXEC DBMS_STATS.GATHER_TABLE_STATS(OWNNAME =>'ODSPMART',TABNAME=>'T_MID_EVT_ITV_VIEWINFO_202005',ESTIMATE_PERCENT=>50,DEGREE=>32,CASCADE=>TRUE,NO_INVALIDATE=>FALSE);
 						
-						2£ºÊý¾Ý´¦Àíµ÷¶È£º
+						2ï¼šæ•°æ®å¤„ç†è°ƒåº¦ï¼š
 						[MID] T_MID_CPSP_SETTLE_INDEX
 						[FCT] T_FCT_CPSP_SETTLE_INDEX
 						
-						3£º±¨±íÊý¾Ý£º
-						ÔÂ±¨-CPSP½áËãÒµÎñÊÕÈë-Ä¿Â¼ÏÂÁ½ÕÅ±¨±í
-						¼ì²éÖ¸±êÊÕÈë»·±ÈÊÇ·ñ´æÔÚÒì³£²¢½øÐÐºË²é
-						
-						4£ºÊÕÈëÁÐÕËÏµÍ³½Ó¿ÚÌá¹©×÷Òµµ÷¶È£¨ÊÖ¶¯Ö´ÐÐ£©£º
+						3ï¼šæŠ¥è¡¨æ•°æ®ï¼š
+						æœˆæŠ¥-CPSPç»“ç®—ä¸šåŠ¡æ”¶å…¥-ç›®å½•ä¸‹ä¸¤å¼ æŠ¥è¡¨
+						æ£€æŸ¥æŒ‡æ ‡æ”¶å…¥çŽ¯æ¯”æ˜¯å¦å­˜åœ¨å¼‚å¸¸å¹¶è¿›è¡Œæ ¸æŸ¥
+						--------------------------------------
+						4ï¼šæ”¶å…¥åˆ—è´¦ç³»ç»ŸæŽ¥å£æä¾›ä½œä¸šè°ƒåº¦ï¼ˆæ‰‹åŠ¨æ‰§è¡Œï¼‰ï¼šæ­¤æ­¥äº¤ç»™ä¸¥å¼€æž—
 						[EXP] EXP_T_DIM_CPSP_SETTLE_INDEX
 						[EXP] EXP_T_FCT_CPSP_SETTLE_INDEX
 						[EXP] EXP_T_MID_CPSP_SETTLE_INDEX
 
-@@@@ÊµÃûÖÆÉÏ´«ÉÏ´«@@@
+@@@@å®žååˆ¶ä¸Šä¼ ä¸Šä¼ é€šè¿‡233ä¸Šä¼ ä¸è¦å¿˜è®°@@@
 
-ÒÆ¶¯»¤Ê¿Õ¾½áËã¹æÔòµ÷Õû¼°ÊÕÈëÊÖ¶¯¸ÉÔ¤Á½¸öÔÂ£¬CPSP¡¾201903¡¿ºÍ¡¾201904¡¿ÕËÆÚÐèÒªÊÖ¶¯É¾³ýÒÔÏÂÊý¾ÝºóÖØÐÂÖ´ÐÐFCT£¬ÒÆ¶¯»¤Ê¿Õ¾´ËÁ½¸öÕËÆÚÊý¾ÝÎª0¡£
+ç§»åŠ¨æŠ¤å£«ç«™ç»“ç®—è§„åˆ™è°ƒæ•´åŠæ”¶å…¥æ‰‹åŠ¨å¹²é¢„ä¸¤ä¸ªæœˆï¼ŒCPSPã€201903ã€‘å’Œã€201904ã€‘è´¦æœŸéœ€è¦æ‰‹åŠ¨åˆ é™¤ä»¥ä¸‹æ•°æ®åŽé‡æ–°æ‰§è¡ŒFCTï¼Œç§»åŠ¨æŠ¤å£«ç«™æ­¤ä¸¤ä¸ªè´¦æœŸæ•°æ®ä¸º0ã€‚
 DELETE FROM ODSPMART.T_MID_CPSP_SETTLE_INDEX A
 WHERE A.MONTH_ID>=201903 AND A.MONTH_ID<=201904
 AND A.INDEX_CODE='WWHB-103750';

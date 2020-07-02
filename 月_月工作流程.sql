@@ -1,4 +1,4 @@
-1日  一定要记住
+1日  一定要记住  30022
 
 检查欠费接口30111-30124  >>> 手动放开BBB  >>> 等待触发MONTH_A >>> 放开MONTH_A 下游
 SELECT a.etl_system,a.etl_job,a.etl_server,a.jobtype,a.enable,a.last_jobstatus,a.last_txdate,a.last_starttime,a.last_endtime 
